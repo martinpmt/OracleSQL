@@ -45,7 +45,10 @@ public class Department {
         Connection con = ora.getConnection();
         try {
             Statement stmt = con.createStatement();
-            String query = "select * from employees where department_id="+getDeparment_ID()+"";
+            String query = "SELECT DISTINCT M.EMPLOYEE_ID, M.FIRST_NAME, M.LAST_NAME, E.MANAGER_ID " 
+                    + "FROM EMPLOYEES E" 
+                    + "JOIN EMPLOYEES M" 
+                    + "ON E.MANAGER_ID = M.EMPLOYEE_ID";
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getString(3));
