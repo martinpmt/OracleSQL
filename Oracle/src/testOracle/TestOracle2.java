@@ -31,7 +31,7 @@ public class TestOracle2 {
             //step4 execute query
             ResultSet rs = stmt.executeQuery(
                     "select E.employee_id, E.last_name, E.first_name "
-                            + "from puspa.employees E" );
+                            + "from employees E" );
             while (rs.next()) {
                 System.out.println( //rs.getString(1) + "  " +
                         rs.getString(2)+ " "

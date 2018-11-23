@@ -5,7 +5,14 @@
  */
 package model_HR;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import util.MyOracle;
 
 /**
  *
@@ -17,9 +24,10 @@ public class Department {
     private String department_name;
 
     private ArrayList<Employee> listEmployees = new ArrayList<Employee>();
+    private ArrayList<Employee> managers = new ArrayList<Employee>();
 
-    private Employee manager ;
-    
+    private Employee manager;
+
     public Department() {
     }
 
@@ -29,18 +37,50 @@ public class Department {
     }
 
     /**
-     * Fungsi untuk membaca daftar/table employee lalu dipindahkan ke list daftar employees;
+     * Fungsi untuk membaca daftar/table employee lalu dipindahkan ke list
+     * daftar employees;
      */
     public void readEmployees() {
+        MyOracle ora = new MyOracle("172.23.9.185", "1521", "orcl", "MHS175314090", "MHS175314090");
+        Connection con = ora.getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            String query = "select * from employees where department_id="+getDeparment_ID()+"";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getString(3));
+                    listEmployees.add(emp);
+                }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     /**
      * Fungsi untuk membaca manager sebuah departemen
      */
-    public void readManager(){
-        
+    public void readManager() {
+        MyOracle ora = new MyOracle("172.23.9.185", "1521", "orcl", "MHS175314090", "MHS175314090");
+        Connection con = ora.getConnection();
+        try {
+            Statement stmt = con.createStatement();
+            String query = "select * from employees where department_id="+getDeparment_ID()+"";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getString(3));
+                
+                    listEmployees.add(emp);
+                
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
+
     /**
      * @return the deparment_ID
      */
@@ -97,5 +137,12 @@ public class Department {
         this.manager = manager;
     }
 
-    
+    public ArrayList<Employee> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(ArrayList<Employee> managers) {
+        this.managers = managers;
+    }
+
 }

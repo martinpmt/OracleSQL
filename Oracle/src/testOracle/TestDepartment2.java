@@ -6,6 +6,7 @@
 package testOracle;
 
 import model_HR.Department;
+import model_HR.Employee;
 
 /**
  *
@@ -27,8 +28,15 @@ public class TestDepartment2 {
         
         dept.readManager();
         dept1.readManager();
-        System.out.println("Manager   = "+dept.getManager());
-        System.out.println("Manager 1 = "+dept1.getManager());
-    }
+        for (int i = 0; i < dept.getManagers().size(); i++) {
+            Employee man = dept.getManagers().get(i);
+            System.out.println("Manager = "+man.toString());
+        }
+        
+        for (int i = 0; i < dept1.getManagers().size(); i++) {
+            Employee man = dept1.getManagers().get(i);
+            System.out.println("Manager = "+man.toString());
+        }
+   }
   
 }
