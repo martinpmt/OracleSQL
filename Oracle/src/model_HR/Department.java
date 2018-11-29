@@ -73,7 +73,7 @@ public class Department {
             while (rs.next()) {
                 Employee emp = new Employee(rs.getInt(1), rs.getString(2), rs.getString(3));
                 
-                    listEmployees.add(emp);
+                    managers.add(emp);
                 
             }
             con.close();
